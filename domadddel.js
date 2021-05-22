@@ -1,13 +1,16 @@
 var form= document.getElementById("addForm");
 var itemlist=document.getElementById('items');
-var samplepanu=document.getElementById('header-title');
-console.log(samplepanu.innerHTML);
+var filter=document.getElementById('filter');
+
 
 // Form submit event
 form.addEventListener('submit', addItem);
 
-// delete item
+// delete item event
 itemlist.addEventListener('click',removeItem);
+
+// filter event
+filter.addEventListener('keyup',filterItemes)
 // fuction of adding item
 function addItem(e){
     e.preventDefault();
@@ -82,4 +85,27 @@ function removeItem(e){
         }   
     }
     
+}
+
+/////////////filter/////
+function filterItemes(e){
+    ///convert text to lower case
+    var text=e.target.value.toLowerCase();
+    var items=itemlist.getElementsByTagName('li');
+    var myit=document.getElementById('item');
+    myit.value='';
+
+   
+    //myi.style.placeholder='type discription here...'
+    /// convert to array
+    Array.from(items).forEach(function(item){
+        var itemName=item.firstChild.textContent;
+        if(itemName.toLowerCase().indexOf(text)!=-1){
+            item.style.display='block';
+        }
+        else{
+            item.style.display='none';
+        }
+    });
+
 }
